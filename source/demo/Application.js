@@ -26,7 +26,7 @@ class Application extends Component {
     return (
       <div>
         <div>
-          Total options: {options.length}
+          Demo showing {options.length} options.
         </div>
         <h2>With fast-filter</h2>
         <p>
@@ -36,8 +36,8 @@ class Application extends Component {
         <VirtualizedSelect
           filterOptions={filterOptions}
           options={options}
-          onChange={(selectValue) => this.setState({ selectValue })}
-          value={this.state.selectValue}
+          onChange={(value1) => this.setState({ value1 })}
+          value={this.state.value1}
         />
         <h2>Without fast-filter</h2>
         <p>
@@ -46,8 +46,8 @@ class Application extends Component {
         </p>
         <VirtualizedSelect
           options={options}
-          onChange={(selectValue) => this.setState({ selectValue })}
-          value={this.state.selectValue}
+          onChange={(value2) => this.setState({ value2 })}
+          value={this.state.value2}
         />
       </div>
     )

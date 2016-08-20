@@ -1,12 +1,27 @@
 import { Search, UnorderedSearchIndex } from 'js-search'
 
 export default function createFilterOptions ({
+  indexStrategy,
   labelKey = 'label',
   options = [],
+  sanitizer,
+  searchIndex,
+  tokenizer,
   valueKey = 'value'
 }) {
   const search = new Search(valueKey)
-  search.searchIndex = new UnorderedSearchIndex()
+  search.searchIndex = searchIndex || new UnorderedSearchIndex()
+
+  if (indexStrategy) {
+    search.indexStrategy = indexStrategy
+  }
+  if (sanitizer) {
+    search.sanitizer = sanitizer
+  }
+  if (tokenizer) {
+    search.tokenizer = tokenizer
+  }
+
   search.addIndex(labelKey)
   search.addDocuments(options)
 
