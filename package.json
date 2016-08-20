@@ -16,6 +16,7 @@
     "clean:umd": "rimraf dist/umd",
     "deploy": "gh-pages -d build",
     "postpublish": "npm run deploy",
+    "predeploy": "cp ./styles.css ./build/",
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev.js"
   },
   "author": "Brian Vaughn (brian.david.vaughn@gmail.com)",

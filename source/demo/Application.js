@@ -25,8 +25,11 @@ class Application extends Component {
   render () {
     return (
       <div>
+        <h1>react-select-fast-filter-options</h1>
+        <p><code>filterOptions</code> function for <code>react-select</code>; optimized to quickly filter large options lists</p>
+        <p>More info on Github at <a href="https://github.com/bvaughn/react-select-fast-filter-options">https://github.com/bvaughn/react-select-fast-filter-options</a></p>
         <div>
-          Demo showing {options.length} options.
+          Drop-downs below contain {options.length} options.
         </div>
         <h2>With fast-filter</h2>
         <p>
