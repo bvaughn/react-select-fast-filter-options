@@ -1,4 +1,8 @@
-import { Search, UnorderedSearchIndex } from 'js-search'
+import {
+  AllSubstringsIndexStrategy,
+  Search,
+  UnorderedSearchIndex
+} from 'js-search'
 
 export default function createFilterOptions ({
   indexStrategy,
@@ -11,13 +15,12 @@ export default function createFilterOptions ({
 }) {
   const search = new Search(valueKey)
   search.searchIndex = searchIndex || new UnorderedSearchIndex()
+  search.indexStrategy = indexStrategy || new AllSubstringsIndexStrategy()
 
-  if (indexStrategy) {
-    search.indexStrategy = indexStrategy
-  }
   if (sanitizer) {
     search.sanitizer = sanitizer
   }
+
   if (tokenizer) {
     search.tokenizer = tokenizer
   }

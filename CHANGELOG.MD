@@ -1,3 +1,6 @@
+##### 0.0.4
+Changed default search index strategy to `AllSubstringsIndexStrategy` to more closely mimic `react-select` default `filterOptions` behavior.
+
 ##### 0.0.3
 Fixed invalid `package.json` "main" entry.
 
