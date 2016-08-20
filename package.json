@@ -14,6 +14,8 @@
     "clean:demo": "rimraf build",
     "clean:es": "rimraf dist/es",
     "clean:umd": "rimraf dist/umd",
+    "deploy": "gh-pages -d build",
+    "postpublish": "npm run deploy",
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev.js"
   },
   "author": "Brian Vaughn (brian.david.vaughn@gmail.com)",
@@ -63,6 +65,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "gh-pages": "^0.11.0",
     "html-webpack-plugin": "^2.22.0",
     "js-search": "^1.3.0",
     "react": "^15.3.1",
