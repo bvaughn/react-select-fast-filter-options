@@ -45,7 +45,7 @@ function render ({ options }) {
 }
 ```
 
-## Configuration
+## Configuration Options
 
 By default, `createFilterOptions` returns a filter function configured to match all substrings, in a case-insensitive way, and return results in their original order. However it supports all of the underlying [`js-search`](https://github.com/bvaughn/js-search) configuration options.
 
@@ -60,3 +60,57 @@ The following table shows all supported parameters and their default values:
 | `searchIndex` | [`ISearchIndex`](https://github.com/bvaughn/js-search/blob/master/source/search-index/search-index.ts) | [`UnorderedSearchIndex`](https://github.com/bvaughn/js-search/blob/master/source/search-index/unordered-search-index.ts) | See [js-search docs](https://github.com/bvaughn/js-search) |
 | `tokenizer` | [`ITokenizer`](https://github.com/bvaughn/js-search/blob/master/source/tokenizer/tokenizer.ts) | [`SimpleTokenizer`](https://github.com/bvaughn/js-search/blob/master/source/tokenizer/simple-tokenizer.ts) | See [js-search docs](https://github.com/bvaughn/js-search) |
 | `valueKey` | string | "value" | Option key containing the value |
+
+## Advanced Configuration
+
+The default filter configuration mimics `react-search` behavior.
+But you can also customize search.
+For example:
+
+```js
+import {
+  CaseSensitiveSanitizer,
+  ExactWordIndexStrategy,
+  Search,
+  SimpleTokenizer,
+  StemmingTokenizer,
+  TfIdfSearchIndex
+} from 'js-search'
+import { stemmer } from 'porter-stemmer'
+import createFilterOptions from 'react-select-fast-filter-options'
+
+// Default index strategy is built for all substrings.
+// In other word "c", "ca", "cat", "a", "at", and "t" all match "cat".
+// Override to only allow exact-word matches like so:
+const indexStrategy = new ExactWordIndexStrategy()
+
+// Default sanitizer is case-insensitive
+// Searches for "foo" will match "Foo".
+// Override to be case-sensitive like so:
+const sanitizer = new CaseSensitiveSanitizer()
+
+// By default, search results are returned in the order they wre indexed.
+// This means that your filtered options will match their unfiltered order.
+// More advanced results orderings are possbile.
+// For example TF-IDF ranking is an option.
+// Learn more at https://github.com/bvaughn/js-search#tf-idf-ranking
+const searchIndex = new TfIdfSearchIndex()
+
+// Default tokenizer just splits search text on spaces.
+// In other words "the boy" becomes 2 search tokens, "the" and "boy".
+// The StemmingTokenizer can be used for fuzzier matching.
+// For example, "searching" will match  "search", "searching", and "searched".
+// Learn more at https://github.com/bvaughn/js-search#stemming
+const tokenizer = new StemmingTokenizer(stemmer, new SimpleTokenizer())
+
+const filterOptions = createFilterOptions({
+  indexStrategy,
+  options,
+  sanitizer,
+  searchIndex,
+  tokenizer
+})
+```
+
+In addition to the stemming tokenizer, other tokenizers are available as well, including `StopWordsTokenizer` which removes common words like "a", "and", and "the".
+For more information on available configuration options, see [`js-search` documentation](https://github.com/bvaughn/js-search).
