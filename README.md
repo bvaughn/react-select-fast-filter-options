@@ -13,10 +13,10 @@ npm install react-select-fast-filter-options --save
 ```
 
 ES6, CommonJS, and UMD builds are available with each distribution.
-Use npmcdn to access the UMD build:
+Use unpkg to access the UMD build:
 
 ```html
-<script src="https://npmcdn.com/react-select-fast-filter-options/dist/umd/react-select-fast-filter-options.js"></script>
+<script src="https://unpkg.com/react-select-fast-filter-options/dist/umd/react-select-fast-filter-options.js"></script>
 ```
 
 Here's how to fast filter with [`react-select`](https://github.com/JedWatson/react-select) or [`react-virtualized-select`](https://github.com/bvaughn/react-virtualized-select):
