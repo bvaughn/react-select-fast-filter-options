@@ -1,3 +1,6 @@
+##### 0.0.5
+Fast filter function now properly excludes selected options to more closely mimic default `react-select` filter behavior.
+
 ##### 0.0.4
 Changed default search index strategy to `AllSubstringsIndexStrategy` to more closely mimic `react-select` default `filterOptions` behavior.
 

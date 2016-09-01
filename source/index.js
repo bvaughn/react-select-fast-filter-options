@@ -30,9 +30,22 @@ export default function createFilterOptions ({
 
   // See https://github.com/JedWatson/react-select/blob/e19bce383a8fd1694278de47b6d00a608ea99f2d/src/Select.js#L830
   // See https://github.com/JedWatson/react-select#advanced-filters
-  return function filterOptions (options, filter) {
-    return filter
-      ? search.search(filter) // .sort((a, b) => a[labelKey].localeCompare(b[labelKey]))
+return function filterOptions (options, filter, selectedOptions) {
+    const filtered = filter
+      ? search.search(filter)
       : options
+
+    if (
+      Array.isArray(selectedOptions) &&
+      selectedOptions.length
+    ) {
+      const selectedValues = selectedOptions.map((option) => option[valueKey])
+
+      return filtered.filter(
+        (option) => !selectedValues.includes(option[valueKey])
+      )
+    }
+
+    return filtered
   }
 }

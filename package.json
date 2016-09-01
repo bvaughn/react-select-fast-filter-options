@@ -1,6 +1,6 @@
 {
   "name": "react-select-fast-filter-options",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "react-select filterOptions function optimized to quickly filter large options lists",
   "main": "dist/commonjs/index.js",
   "jsnext:main": "dist/es/index.js",
