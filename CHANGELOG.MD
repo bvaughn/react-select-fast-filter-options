@@ -1,5 +1,7 @@
-##### 0.1.0
+##### 0.2.0
 Added `indexes` property to support indexing documents on more than just the (visible) label field.
+
+##### 0.1.0
 
 ##### 0.0.5
 Fast filter function now properly excludes selected options to more closely mimic default `react-select` filter behavior.
