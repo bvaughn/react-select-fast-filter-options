@@ -1,3 +1,6 @@
+##### 0.2.1
+Patch to fix previous bad build.
+
 ##### 0.2.0
 Added `indexes` property to support indexing documents on more than just the (visible) label field.
 
