@@ -53,6 +53,7 @@ The following table shows all supported parameters and their default values:
 
 | Property | Type | Default | Description |
 |:---|:---|:---|:---|
+| `indexes` | `Array<String>` |  | Optional array of attributes to build search index from; defaults to the `labelKey` attribute. |
 | `indexStrategy` | [`IIndexStrategy`](https://github.com/bvaughn/js-search/blob/master/source/index-strategy/index-strategy.ts) | [`AllSubstringsIndexStrategy`](https://github.com/bvaughn/js-search/blob/master/source/index-strategy/all-substrings-index-strategy.ts) | See [js-search docs](https://github.com/bvaughn/js-search) |
 | `labelKey` | string | "label" | Option key containing the display text |
 | `options` | array | [] | Array of options objects |

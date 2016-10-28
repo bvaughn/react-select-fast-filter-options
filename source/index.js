@@ -5,6 +5,7 @@ import {
 } from 'js-search'
 
 export default function createFilterOptions ({
+  indexes,
   indexStrategy,
   labelKey = 'label',
   options = [],
@@ -25,7 +26,14 @@ export default function createFilterOptions ({
     search.tokenizer = tokenizer
   }
 
-  search.addIndex(labelKey)
+  if (indexes) {
+    indexes.forEach((index) => {
+      search.addIndex(index)
+    })
+  } else {
+    search.addIndex(labelKey)
+  }
+
   search.addDocuments(options)
 
   // See https://github.com/JedWatson/react-select/blob/e19bce383a8fd1694278de47b6d00a608ea99f2d/src/Select.js#L830
