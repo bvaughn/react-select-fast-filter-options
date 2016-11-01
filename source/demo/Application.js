@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import VirtualizedSelect from 'react-virtualized-select'
 import createFilterOptions from '../index'
+import 'react-virtualized/styles.css'
+import 'react-virtualized-select/styles.css'
 
 const STRINGS = ['foo', 'bar', 'baz', 'qux']
 
