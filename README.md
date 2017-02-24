@@ -19,16 +19,13 @@ Use unpkg to access the UMD build:
 <script src="https://unpkg.com/react-select-fast-filter-options/dist/umd/react-select-fast-filter-options.js"></script>
 ```
 
+#### Examples
 Here's how to fast filter with [`react-select`](https://github.com/JedWatson/react-select) or [`react-virtualized-select`](https://github.com/bvaughn/react-virtualized-select):
 
 ```js
 // Import the Select component from either react-select or react-virtualized-select
 import Select from 'react-virtualized-select' // or from 'react-select'
 
-// Import the fast-filter library
-import createFilterOptions from 'react-select-fast-filter-options'
-
-// Create a search index optimized to quickly filter options.
 // The search index will need to be recreated if your options array changes.
 // This index is powered by js-search: https://github.com/bvaughn/js-search
 const filterOptions = createFilterOptions({ options })
@@ -43,6 +40,53 @@ function render ({ options }) {
     />
   )
 }
+```
+
+Here's how to fast filter with [`redux`](https://github.com/reactjs/redux), [`react-redux`](https://github.com/reactjs/react-redux), and [`reselect`](https://github.com/reactjs/reselect)
+
+##### `selectors/SomeDemoSelectors.js`
+```js
+// selectors file
+import { createSelector } from 'reselect';
+import createFilterOptions from 'react-select-fast-filter-options';
+
+const getSelectOptions = state => state.options;
+
+// Create a search index optimized to quickly filter options.
+// The search index will need to be recreated if your options array changes.
+// This index is powered by js-search: https://github.com/bvaughn/js-search
+// Reselect will only re-run this if options has changed
+const getIndexedOptions = createSelector(
+  getSelectOptions,
+  options => createFilterOptions({ options })
+)
+```
+
+##### `components/Search.js`
+```js
+// Import the Select component from either react-select or react-virtualized-select
+import Select from 'react-virtualized-select'; // or from 'react-select'
+import { connect } from 'react-redux';
+import { getIndexedOptions } from 'selectors/SomeDemoSelectors'
+
+// Render your Select, complete with the fast-filter index
+function render ({ options }) {
+  return (
+    <Select
+      filterOptions={filterOptions}
+      options={options}
+      {...otherSelectProps}
+    />
+  )
+}
+
+const mapStateToProps = (state) => ({
+  options: getIndexedOptions(state)
+})
+
+export default connect(mapStateToProps)(
+  render
+)
 ```
 
 ## Configuration Options
