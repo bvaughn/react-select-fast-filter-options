@@ -2,9 +2,7 @@
 Fast `filterOptions` function for `react-select`;
 optimized to quickly filter huge options lists.
 
-## Getting started
-
-#### Installation
+## Installation
 
 The easiest way to install is using NPM:
 
@@ -19,7 +17,10 @@ Use unpkg to access the UMD build:
 <script src="https://unpkg.com/react-select-fast-filter-options/dist/umd/react-select-fast-filter-options.js"></script>
 ```
 
-#### Examples
+## Examples
+
+#### Basic example
+
 Here's how to fast filter with [`react-select`](https://github.com/JedWatson/react-select) or [`react-virtualized-select`](https://github.com/bvaughn/react-virtualized-select):
 
 ```js
@@ -44,30 +45,28 @@ function render ({ options }) {
 
 Here's how to fast filter with [`redux`](https://github.com/reactjs/redux), [`react-redux`](https://github.com/reactjs/react-redux), and [`reselect`](https://github.com/reactjs/reselect)
 
-##### `selectors/SomeDemoSelectors.js`
+#### Redux example
+
+##### selectors/SearchSelectors.js
 ```js
 // selectors file
 import { createSelector } from 'reselect';
 import createFilterOptions from 'react-select-fast-filter-options';
 
-const getSelectOptions = state => state.options;
-
 // Create a search index optimized to quickly filter options.
 // The search index will need to be recreated if your options array changes.
 // This index is powered by js-search: https://github.com/bvaughn/js-search
 // Reselect will only re-run this if options has changed
-const getIndexedOptions = createSelector(
-  getSelectOptions,
+export const getIndexedOptions = createSelector(
+  state => state.options,
   options => createFilterOptions({ options })
 )
 ```
 
-##### `components/Search.js`
+##### components/Search.js
 ```js
 // Import the Select component from either react-select or react-virtualized-select
 import Select from 'react-virtualized-select'; // or from 'react-select'
-import { connect } from 'react-redux';
-import { getIndexedOptions } from 'selectors/SomeDemoSelectors'
 
 // Render your Select, complete with the fast-filter index
 function render ({ options }) {
@@ -79,6 +78,9 @@ function render ({ options }) {
     />
   )
 }
+
+import { connect } from 'react-redux';
+import { getIndexedOptions } from 'selectors/SearchSelectors'
 
 const mapStateToProps = (state) => ({
   options: getIndexedOptions(state)
