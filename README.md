@@ -100,12 +100,12 @@ The following table shows all supported parameters and their default values:
 | Property | Type | Default | Description |
 |:---|:---|:---|:---|
 | `indexes` | `Array<String>` |  | Optional array of attributes to build search index from; defaults to the `labelKey` attribute. |
-| `indexStrategy` | [`IIndexStrategy`](https://github.com/bvaughn/js-search/blob/master/source/index-strategy/index-strategy.ts) | [`AllSubstringsIndexStrategy`](https://github.com/bvaughn/js-search/blob/master/source/index-strategy/all-substrings-index-strategy.ts) | See [js-search docs](https://github.com/bvaughn/js-search) |
+| `indexStrategy` | [`IndexStrategy`](https://github.com/bvaughn/js-search/blob/master/source/IndexStrategy/IndexStrategy.js) | [`AllSubstringsIndexStrategy`](https://github.com/bvaughn/js-search/blob/master/source/IndexStrategy/AllSubstringsIndexStrategy.js) | See [js-search docs](https://github.com/bvaughn/js-search) |
 | `labelKey` | string | "label" | Option key containing the display text |
 | `options` | array | [] | Array of options objects |
-| `sanitizer` | [`ISanitizer`](https://github.com/bvaughn/js-search/blob/master/source/sanitizer/sanitizer.ts) | [`LowerCaseSanitizer`](https://github.com/bvaughn/js-search/blob/master/source/sanitizer/lower-case-sanitizer.ts) | See [js-search docs](https://github.com/bvaughn/js-search) |
-| `searchIndex` | [`ISearchIndex`](https://github.com/bvaughn/js-search/blob/master/source/search-index/search-index.ts) | [`UnorderedSearchIndex`](https://github.com/bvaughn/js-search/blob/master/source/search-index/unordered-search-index.ts) | See [js-search docs](https://github.com/bvaughn/js-search) |
-| `tokenizer` | [`ITokenizer`](https://github.com/bvaughn/js-search/blob/master/source/tokenizer/tokenizer.ts) | [`SimpleTokenizer`](https://github.com/bvaughn/js-search/blob/master/source/tokenizer/simple-tokenizer.ts) | See [js-search docs](https://github.com/bvaughn/js-search) |
+| `sanitizer` | [`Sanitizer`](https://github.com/bvaughn/js-search/blob/master/source/Sanitizer/Sanitizer.js) | [`LowerCaseSanitizer`](https://github.com/bvaughn/js-search/blob/master/source/Sanitizer/LowerCaseSanitizer.js) | See [js-search docs](https://github.com/bvaughn/js-search) |
+| `searchIndex` | [`SearchIndex`](https://github.com/bvaughn/js-search/blob/master/source/SearchIndex/SearchIndex.js) | [`UnorderedSearchIndex`](https://github.com/bvaughn/js-search/blob/master/source/SearchIndex/UnorderedSearchIndex.js) | See [js-search docs](https://github.com/bvaughn/js-search) |
+| `tokenizer` | [`Tokenizer`](https://github.com/bvaughn/js-search/blob/master/source/Tokenizer/Tokenizer.js) | [`SimpleTokenizer`](https://github.com/bvaughn/js-search/blob/master/source/Tokenizer/SimpleTokenizer.js) | See [js-search docs](https://github.com/bvaughn/js-search) |
 | `valueKey` | string | "value" | Option key containing the value |
 
 ## Advanced Configuration
