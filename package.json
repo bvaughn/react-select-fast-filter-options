@@ -44,11 +44,11 @@
     ]
   },
   "dependencies": {
-    "js-search": "^1.3.1",
-    "react-select": "^1.0.0-beta14"
+    "js-search": "^1.3.1"
   },
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0"
+    "react": "^0.14.0 || ^15.0.0",
+    "react-select": "^1.0.0-beta14"
   },
   "devDependencies": {
     "babel-cli": "6.8.0",
@@ -62,9 +62,8 @@
     "babel-plugin-typecheck": "^3.9.0",
     "babel-polyfill": "^6.5.0",
     "babel-preset-es2015": "^6.5.0",
-    "babel-preset-es2015-rollup": "^1.1.1",
     "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
+    "babel-preset-stage-2": "^6.5.0",
     "css-loader": "^0.25.0",
     "cross-env": "^3.1.3",
     "extract-text-webpack-plugin": "^1.0.1",
