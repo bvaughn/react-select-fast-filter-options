@@ -1,6 +1,5 @@
 # react-select-fast-filter-options
-Fast `filterOptions` function for `react-select`;
-optimized to quickly filter huge options lists.
+Fast `filterOptions` function for [`react-select`](https://github.com/JedWatson/react-select); optimized to quickly filter huge options lists.
 
 ## Installation
 
@@ -11,6 +10,7 @@ npm install react-select-fast-filter-options --save
 ```
 
 ES6, CommonJS, and UMD builds are available with each distribution.
+
 Use unpkg to access the UMD build:
 
 ```html
@@ -19,76 +19,147 @@ Use unpkg to access the UMD build:
 
 ## Examples
 
-#### Basic example
+#### [`react-select`](https://github.com/JedWatson/react-select) example
 
-Here's how to fast filter with [`react-select`](https://github.com/JedWatson/react-select) or [`react-virtualized-select`](https://github.com/bvaughn/react-virtualized-select):
+[Try this example in Code Sandbox.](https://codesandbox.io/s/rjjn7m3q3o)
 
 ```js
-// Import the Select component from either react-select or react-virtualized-select
-import Select from 'react-virtualized-select' // or from 'react-select'
+// Import default styles.
+// This only needs to be done once; probably during bootstrapping process.
+import "react-select/dist/react-select.css";
 
-// The search index will need to be recreated if your options array changes.
-// This index is powered by js-search: https://github.com/bvaughn/js-search
-const filterOptions = createFilterOptions({ options })
+import React from "react";
+import ReactDOM from "react-dom";
+import createFilterOptions from "react-select-fast-filter-options";
+import Select from "react-select";
 
-// Render your Select, complete with the fast-filter index
-function render ({ options }) {
-  return (
-    <Select
-      filterOptions={filterOptions}
-      options={options}
-      {...otherSelectProps}
-    />
-  )
-}
+// Dummy array of test values.
+const options = [
+  {label: "Option One", value: 1},
+  {label: "Option Two", value: 2},
+];
+
+// For more configuration options, see:
+// https://github.com/bvaughn/react-select-fast-filter-options#configuration-options
+const filterOptions = createFilterOptions({
+  options
+});
+
+ReactDOM.render(
+  <Select filterOptions={filterOptions} options={options} />,
+  document.getElementById("root")
+);
 ```
 
-Here's how to fast filter with [`redux`](https://github.com/reactjs/redux), [`react-redux`](https://github.com/reactjs/react-redux), and [`reselect`](https://github.com/reactjs/reselect)
+#### [`react-virtualized-select`](https://github.com/bvaughn/react-virtualized-select) example
 
-#### Redux example
+[Try this example in Code Sandbox.](https://codesandbox.io/s/qoro7wzy9)
 
-##### selectors/SearchSelectors.js
+```js
+// Import default styles.
+// This only needs to be done once; probably during bootstrapping process.
+import "react-select/dist/react-select.css";
+import "react-virtualized/styles.css";
+import "react-virtualized-select/styles.css";
+
+import React from "react";
+import ReactDOM from "react-dom";
+import createFilterOptions from "react-select-fast-filter-options";
+import Select from "react-virtualized-select";
+
+// Dummy array of test values.
+const options = [
+  {label: "Option One", value: 1},
+  {label: "Option Two", value: 2},
+];
+
+// For more configuration options, see:
+// https://github.com/bvaughn/react-select-fast-filter-options#configuration-options
+const filterOptions = createFilterOptions({
+  options
+});
+
+ReactDOM.render(
+  <Select filterOptions={filterOptions} options={options} />,
+  document.getElementById("root")
+);
+```
+
+#### [`react-redux`](https://github.com/reactjs/react-redux) example
+
+[Try this example in Code Sandbox.](https://codesandbox.io/s/7kn4k94rrj)
+
+##### `selectors.js`
 ```js
 // selectors file
-import { createSelector } from 'reselect';
-import createFilterOptions from 'react-select-fast-filter-options';
+import { createSelector } from "reselect";
+import createFilterOptions from "react-select-fast-filter-options";
+
+// Select the huge array of options stored in redux state
+export const optionsSelector = state => state.options;
 
 // Create a search index optimized to quickly filter options.
 // The search index will need to be recreated if your options array changes.
 // This index is powered by js-search: https://github.com/bvaughn/js-search
 // Reselect will only re-run this if options has changed
-export const getIndexedOptions = createSelector(
-  state => state.options,
-  options => createFilterOptions({ options })
-)
+export const getIndexedOptions = createSelector(optionsSelector, options =>
+  createFilterOptions({ options })
+);
 ```
 
-##### components/Search.js
+##### `reducers.js`
 ```js
-// Import the Select component from either react-select or react-virtualized-select
-import Select from 'react-virtualized-select'; // or from 'react-select'
+// Dummy array of test values.
+const options = Array.from(new Array(100), (_, index) => ({
+  label: `Item ${index}`,
+  value: index
+}));
 
-// Render your Select, complete with the fast-filter index
-function render ({ options }) {
-  return (
-    <Select
-      filterOptions={filterOptions}
-      options={options}
-      {...otherSelectProps}
-    />
-  )
+const INITIAL_STATE = {
+  options
+};
+
+function searchApp(state = INITIAL_STATE, action) {
+  switch (action.type) {
+    default:
+      return state;
+  }
 }
 
-import { connect } from 'react-redux';
-import { getIndexedOptions } from 'selectors/SearchSelectors'
+export default searchApp;
+```
 
-const mapStateToProps = (state) => ({
-  options: getIndexedOptions(state)
-})
+##### application.js
+```js
+// Import default styles.
+// This only needs to be done once; probably during bootstrapping process.
+import "react-select/dist/react-select.css";
 
-export default connect(mapStateToProps)(
-  render
-)
+import React from "react";
+import ReactDOM from "react-dom";
+import { connect, Provider } from "react-redux";
+import Select from "react-select";
+import { createStore } from "redux";
+import { createSelector } from "reselect";
+import searchApp from "./reducers";
+import { getIndexedOptions, optionsSelector } from "./selectors";
+
+const store = createStore(searchApp);
+const mapStateToProps = state => ({
+  filterOptions: getIndexedOptions(state),
+  options: optionsSelector(state)
+});
+
+const FilterableSelect = connect(mapStateToProps)(props => (
+  <Select {...props} />
+));
+
+ReactDOM.render(
+  <Provider store={store}>
+    <FilterableSelect />
+  </Provider>,
+  document.getElementById("root")
+);
 ```
 
 ## Configuration Options
