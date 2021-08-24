@@ -20,6 +20,10 @@
     "postpublish": "npm run deploy",
     "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --config webpack.config.dev.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bvaughn/react-select-fast-filter-options.git"
+  },
   "author": "Brian Vaughn (brian.david.vaughn@gmail.com)",
   "license": "MIT",
   "standard": {
